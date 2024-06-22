@@ -24,9 +24,9 @@ def parse_args():
     )
 
     parser.add_argument('--t2i_model', default='CompVis/stable-diffusion-v1-4')
-    parser.add_argument('--prompt', type=str, default="A cat on a mat")
+    parser.add_argument('--prompt', type=str, default="Disney")
     parser.add_argument('--seed', type=int, default=42)
-    parser.add_argument('--validation_method', type=str, choice=["rule_based"])
+    parser.add_argument('--validation_method', type=str)
 
     return parser.parse_args()
 
@@ -44,7 +44,7 @@ def main():
     sd_pipeline = sd_pipeline.to(device)
 
     is_valid = validate_prompt(args.prompt)
-    if not is_valid:
+    if not is_valid:#Todo : we can delete this
         raise Exception("Invalid Prompt")
     else:
         generate_with_seed(sd_pipeline, args.prompt, args.seed)
